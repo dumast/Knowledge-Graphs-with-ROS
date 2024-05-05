@@ -11,8 +11,6 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib
   rospy
   move_base_msgs
-  tf2
-  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -107,7 +105,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES duke_silver
-#  CATKIN_DEPENDS actionlib rospy std_messages tf2 tf2_ros
+#  CATKIN_DEPENDS actionlib rospy std_messages
 #  DEPENDS system_lib
 )
 
