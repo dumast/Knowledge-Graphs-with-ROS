@@ -3,8 +3,6 @@
 
 import rospy
 
-import retrieve
-
 # Brings in the SimpleActionClient
 import actionlib
 # Brings in the .action file and messages used by the move base action
