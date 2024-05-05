@@ -1,19 +1,20 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # license removed for brevity
 
 import rospy
 
-# import retrieve
+import retrieve
 
 # Brings in the SimpleActionClient
 import actionlib
 # Brings in the .action file and messages used by the move base action
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
+
 def movebase_client(target_x, target_y):
 
    # Create an action client called "move_base" with action definition file "MoveBaseAction"
-    client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
+    client = actionlib.SimpleActionClient('duke_silver', MoveBaseAction)
  
    # Waits until the action server has started up and started listening for goals.
     client.wait_for_server()
@@ -46,8 +47,8 @@ if __name__ == '__main__':
        # Initializes a rospy node to let the SimpleActionClient publish and subscribe
         rospy.init_node('movebase_client_py')
        
-        target_x = 1
-        target_y = 1
+        target_x = 3
+        target_y = 3
        
         result = movebase_client(target_x, target_y)
         if result:

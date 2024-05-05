@@ -161,6 +161,7 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 # catkin_install_python(PROGRAMS
 #   src/duke_silver.py
+#   src/duke_silver_old.py
 #   src/move.py
 #   src/retrieve.py
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
