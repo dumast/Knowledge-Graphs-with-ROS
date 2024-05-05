@@ -195,7 +195,7 @@ def runPage():
             if database_results:
                 st.text_area("Last Database Results", database_results, key="_database", height=240)
 
-if __name__ == '__main__':
+def run():
     if st._is_running_with_streamlit:
         runPage()
     else:
