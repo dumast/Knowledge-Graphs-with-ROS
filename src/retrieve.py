@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.9
 
 # %% [markdown]
 # # Imports >_<
@@ -6,6 +6,7 @@
 # %%
 #Yk adds all the thing needed for the code
 import duke_silver
+from streamlit import cli as stcli
 import streamlit as st
 from streamlit_chat import message
 from timeit import default_timer as timer
@@ -135,6 +136,9 @@ def getPieceLocation(database_results):
 # %%
 def runPage():
     st.set_page_config(layout="wide")
+    
+    cypher_query = ""
+    database_results = ""
 
     if "user_msgs" not in st.session_state:
         st.session_state.user_msgs = []
@@ -190,4 +194,10 @@ def runPage():
         with col3:
             if database_results:
                 st.text_area("Last Database Results", database_results, key="_database", height=240)
-    
+
+def run():
+    if st._is_running_with_streamlit:
+        runPage()
+    else:
+        sys.argv = ["streamlit", "run", sys.argv[0]]
+        sys.exit(stcli.runPage())

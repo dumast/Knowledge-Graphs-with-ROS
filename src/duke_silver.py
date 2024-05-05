@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.9
 # license removed for brevity
 
 import rospy
@@ -12,7 +12,7 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 def movebase_client(target_x, target_y):
 
    # Create an action client called "move_base" with action definition file "MoveBaseAction"
-    client = actionlib.SimpleActionClient('duke_silver', MoveBaseAction)
+    client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
  
    # Waits until the action server has started up and started listening for goals.
     client.wait_for_server()
