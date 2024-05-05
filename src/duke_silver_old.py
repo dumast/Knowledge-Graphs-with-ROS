@@ -4,7 +4,7 @@
 import rospy
 
 import sys
-import streamlit.web import cli as stcli
+from streamlit.web import cli as stcli
 
 # If the python node is executed as main process (sourced directly)
 if __name__ == '__main__':

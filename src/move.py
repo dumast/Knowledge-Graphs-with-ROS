@@ -5,6 +5,8 @@ import actionlib
 # Brings in the .action file and messages used by the move base action
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
+import tf2_ros
+
 import rospy
 
 def movebase_client(target_x, target_y):
@@ -15,12 +17,14 @@ def movebase_client(target_x, target_y):
    # Waits until the action server has started up and started listening for goals.
     client.wait_for_server()
     
-    listener = tf.TransformListener()
+    tf_buffer = tf2_ros.Buffer()
+    listener = tf2_ros.TransformListener(tf_buffer)
     
-    (trans, rot) = listener.lookupTransform('/odom', '/base_link', rospy.Time(0))
-    # Extract x, y coordinates
-    x = trans[0]
-    y = trans[1]
+    
+    trans = tf_buffer.lookup_transform('base_link','odom',rospy.Time(0))
+    
+    x = trans.transform.translation.x
+    y = trans.transform.translation.y
     
     print(f"ROBOT_X: {x}")
     print(f"ROBOT_Y: {y}")
