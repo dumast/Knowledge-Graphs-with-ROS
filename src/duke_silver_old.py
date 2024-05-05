@@ -3,7 +3,8 @@
 
 import rospy
 
-from retrieve import *
+import sys
+import streamlit.web import cli as stcli
 
 # If the python node is executed as main process (sourced directly)
 if __name__ == '__main__':
@@ -11,7 +12,8 @@ if __name__ == '__main__':
        # Initializes a rospy node to let the SimpleActionClient publish and subscribe
         rospy.init_node('movebase_client_py')
         
-        run()
+        sys.argv = ['streamlit', 'run', 'retrieve.py']
+        sys.exit(stcli.main())
         
         # result = movebase_client(target_x, target_y)
         # if result:

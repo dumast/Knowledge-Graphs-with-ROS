@@ -5,6 +5,8 @@ import actionlib
 # Brings in the .action file and messages used by the move base action
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
+import rospy
+
 def movebase_client(target_x, target_y):
 
    # Create an action client called "move_base" with action definition file "MoveBaseAction"
@@ -12,14 +14,29 @@ def movebase_client(target_x, target_y):
  
    # Waits until the action server has started up and started listening for goals.
     client.wait_for_server()
+    
+    listener = tf.TransformListener()
+    
+    (trans, rot) = listener.lookupTransform('/odom', '/base_link', rospy.Time(0))
+    # Extract x, y coordinates
+    x = trans[0]
+    y = trans[1]
+    
+    print(f"ROBOT_X: {x}")
+    print(f"ROBOT_Y: {y}")
+    
+    print(f"GOAL_X: {target_x - x}")
+    print(f"GOAL_X: {target_y - y}")
+    
+    
 
    # Creates a new goal with the MoveBaseGoal constructor
     goal = MoveBaseGoal()
-    goal.target_pose.header.frame_id = "base_link" # change to odom
+    goal.target_pose.header.frame_id = "base_link"
     goal.target_pose.header.stamp = rospy.Time.now() 
    # Move 0.5 meters forward along the x axis of the "map" coordinate frame 
-    goal.target_pose.pose.position.x = target_x
-    goal.target_pose.pose.position.y = target_y
+    goal.target_pose.pose.position.x = target_x - x
+    goal.target_pose.pose.position.y = target_y - y
    # No rotation of the mobile base frame w.r.t. map frame
     goal.target_pose.pose.orientation.w = 1.0
 

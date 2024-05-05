@@ -16,7 +16,7 @@ from langchain.prompts.prompt import PromptTemplate
 
 from langchain_community.chat_models import ChatOpenAI
 
-import move
+from move import *
 
 import dotenv
 import os
@@ -194,7 +194,4 @@ def runPage():
             if database_results:
                 st.text_area("Last Database Results", database_results, key="_database", height=240)
 
-def run():
-    streamlit_thread = Thread(target=runPage)
-    streamlit_thread.daemon = True
-    streamlit_thread.start()
+runPage()
