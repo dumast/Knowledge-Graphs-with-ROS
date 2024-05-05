@@ -6,7 +6,6 @@
 # %%
 #Yk adds all the thing needed for the code
 import duke_silver
-from streamlit import cli as stcli
 import streamlit as st
 from streamlit_chat import message
 from timeit import default_timer as timer
@@ -196,8 +195,6 @@ def runPage():
                 st.text_area("Last Database Results", database_results, key="_database", height=240)
 
 def run():
-    if st._is_running_with_streamlit:
-        runPage()
-    else:
-        sys.argv = ["streamlit", "run", sys.argv[0]]
-        sys.exit(stcli.runPage())
+    streamlit_thread = Thread(target=runPage)
+    streamlit_thread.daemon = True
+    streamlit_thread.start()
