@@ -3,7 +3,7 @@
 
 import rospy
 
-import retrieve
+# import retrieve
 
 # Brings in the SimpleActionClient
 import actionlib
