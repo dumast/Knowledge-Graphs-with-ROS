@@ -124,7 +124,10 @@ def getPieceLocation(database_results):
         )
         target_x = node_info[0]['a']['x']
         target_y = node_info[0]['a']['y']
-        movebase_result = movebase_client(target_x, target_y)
+        
+        summary = node_info[0]['a']['summary']    
+        
+        movebase_result = movebase_client(target_x, target_y, summary)
     except Exception as e:
         print(e)
 

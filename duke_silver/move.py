@@ -1,9 +1,12 @@
 import roslibpy
 import roslibpy.actionlib
+import pyttsx3
 
 client = roslibpy.Ros(host="0.0.0.0", port=9090)
 client.run()
 print("Is ROS connected?", client.is_connected)
+
+engine = pyttsx3.init()
 
 
 action_client = roslibpy.actionlib.ActionClient(client, "/move_base", "move_base_msgs/MoveBaseAction")
@@ -13,7 +16,7 @@ def destination_reached(r):
     print(r)
     
 
-def movebase_client(target_x, target_y):
+def movebase_client(target_x, target_y, summary):
     
     global move_goal
 
@@ -22,7 +25,7 @@ def movebase_client(target_x, target_y):
         "target_pose": {
             "header": {"frame_id": "map"},
             "pose": {
-                "position": {"x": target_x, "y": target_y, "z": 0.0},
+                "position": {"x": target_x, "y": target_y, "z": 0.216},
                 "orientation": {"x": 0.0, "y": 0.0, "z": 0, "w": 1.0},
             },
         }
@@ -30,6 +33,9 @@ def movebase_client(target_x, target_y):
 
     move_goal = roslibpy.actionlib.Goal(action_client, message)
     move_goal.send(result_callback=destination_reached)
+    
+    engine.say(summary)
+    engine.runAndWait()
 
 def cancel_goal():
     global move_goal
