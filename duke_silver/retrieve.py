@@ -115,17 +115,24 @@ def getPieceLocation(database_results):
         
         
         mostRelevantPiece = database_results[0]
-        artPieceName = mostRelevantPiece['ArtPiece'].replace("'", "\\'")
         
-        print(artPieceName)
+        if 'a' in mostRelevantPiece:
+            target_x = mostRelevantPiece['x']
+            target_y = mostRelevantPiece['y']
+            summary = mostRelevantPiece['summary']   
+        else:
+            if 'ArtPiece' in mostRelevantPiece: 
+                artPieceName = mostRelevantPiece['ArtPiece'].replace("'", "\\'")
+            else:
+                artPieceName = mostRelevantPiece['ArtPieceName'].replace("'", "\\'")
         
-        node_info = graph.query(
-            f"MATCH (a:ArtPiece) WHERE a.name = '{artPieceName}' RETURN a",
-        )
-        target_x = node_info[0]['a']['x']
-        target_y = node_info[0]['a']['y']
-        
-        summary = node_info[0]['a']['summary']    
+            node_info = graph.query(
+                f"MATCH (a:ArtPiece) WHERE a.name = '{artPieceName}' RETURN a",
+            )
+            target_x = node_info[0]['a']['x']
+            target_y = node_info[0]['a']['y']
+            
+            summary = node_info[0]['a']['summary']    
         
         movebase_result = movebase_client(target_x, target_y, summary)
     except Exception as e:
